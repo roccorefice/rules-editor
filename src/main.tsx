@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.tsx'
 import { ModuleRegistry } from 'ag-grid-community';
 import { AllCommunityModule } from 'ag-grid-community';
-import { AppContext } from './common/contexts/AppContexts.tsx';
+import { AppContext } from './common/contexts/AppContext.tsx';
 // import Loader from './common/components/Loader';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
