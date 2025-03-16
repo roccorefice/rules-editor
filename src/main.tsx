@@ -11,8 +11,8 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-  <AppContext> 
-    <App />
-  </AppContext>
-</StrictMode>
+    <AppContext>
+      <App />
+    </AppContext>
+  </StrictMode>
 )

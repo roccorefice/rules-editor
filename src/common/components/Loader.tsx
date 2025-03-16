@@ -9,7 +9,7 @@ const Loader = ({ loading }: { loading: number }) => {
                     visible={true}
                     height="80"
                     width="80"
-                    color="#F7A800"
+                    color="#fff"
                     radius="9"
                     ariaLabel="three-dots-loading"
                 />

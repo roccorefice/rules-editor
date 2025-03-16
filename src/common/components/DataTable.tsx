@@ -3,7 +3,7 @@ import { ColDef } from "ag-grid-community";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 
-const CustomDataTable = () => {
+const DataTable = () => {
     const columnDefs: ColDef[] = [
         { field: "make", headerName: "Make" },
         { field: "model", headerName: "Model" },
@@ -23,4 +23,4 @@ const CustomDataTable = () => {
     );
 };
 
-export default CustomDataTable;
+export default DataTable;

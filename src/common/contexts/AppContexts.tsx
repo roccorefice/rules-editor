@@ -4,16 +4,14 @@ import { Context } from "./Context";
 import Loader from "../components/Loader";
 
 export const AppContext = ({ children }: PropsWithChildren) => {
-    const [loading, setLoading] = useState(0); // 🔥 Usa solo useState
+    const [loading, setLoading] = useState(0);
 
-    const changeLoading = (val: number) => {
-        console.log('qq');
-        
-        setLoading((prev) => Math.max(0, prev + val)); // 🔥 Aggiunge o rimuove il loader
+    const changeLoading = (val: number) => {        
+        setLoading((prev) => Math.max(0, prev + val));
     };
 
     const clearLoading = () => {
-        setLoading(0); // 🔥 Resetta il loader
+        setLoading(0);
     };
 
     return (
