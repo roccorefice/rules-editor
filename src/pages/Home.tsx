@@ -1,26 +1,34 @@
-import { useContext } from "react";
-import { Context } from "../common/contexts/Context";
-import { useNavigate } from "react-router-dom";
+// import { useContext } from "react";
+// import { Context } from "../common/contexts/Context";
+// import { useNavigate } from "react-router-dom";
+import Button from "../common/components/Button";
+import { Card } from "../common/components/Card";
+import Title from "../common/components/Title";
+import re_logo from "../assets/images/logo-rules-editor.png";
 
 const HomePage = () => {
-  const { changeLoading, clearLoading } = useContext(Context);
-  const navigate = useNavigate();
+  // const { changeLoading, clearLoading } = useContext(Context);
+  // const navigate = useNavigate();
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">Home Page</h1>
-      
-      <button className="bg-blue-500 text-white px-4 py-2 rounded mr-2" onClick={() => changeLoading(1)}>
-        Aggiungi Loader
-      </button>
+    <div className="h-screen w-screen p-12">
+      <div className="text-primary-20 flex justify-between items-center">
+        <div>
+          <Title className="mb-2">Rules Editor</Title>
+          <Title className="mb-4" subTitle>Editor di Regole JSON per una gestione semplice e veloce</Title>
+        </div>
+        <img src={re_logo} className="h-12" />
+      </div>
 
-      <button className="bg-red-500 text-white px-4 py-2 rounded" onClick={clearLoading}>
-        Reset Loader
-      </button>
+      <Card className="bg-neutral-100 h-fit w-full mt-8">
+        <div className="text-primary-20 flex justify-between items-center">
+          <div>
+            Carica il file JSON e inizia a modificare le tue regole!
+          </div>
+          <Button text="Importa" className="bg-neutral-30 text-white px-4 py-2 rounded" />
 
-      <button className="bg-green-500 text-white px-4 py-2 rounded mt-4" onClick={() => navigate("/dashboard")}>
-        Vai alla Dashboard
-      </button>
+        </div>
+      </Card>
     </div>
   );
 };
