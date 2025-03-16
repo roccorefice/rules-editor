@@ -68,3 +68,17 @@ h1 {
   padding: 2rem;
   text-align: center;
 }
+
+.ag-theme-material .ag-paging-panel {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+
+.ag-row-odd, .ag-row-even{
+  cursor: pointer;
+}
+
+.ag-row-odd:hover, .ag-row-even:hover{
+  background-color: #B0D6F4 !important;
+}

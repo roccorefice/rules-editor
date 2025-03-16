@@ -1,89 +1,54 @@
-import { useState } from "react";
-import { RuleCondition, RuleGroup } from "../models/RuleProps";
+import { Rule, RuleGroup } from "../models/RuleProps";
 import { toast } from "react-toastify";
+import { useRulesContext } from "./useRulesContext";
+import { useEffect } from "react";
 
 export const useRules = () => {
-  const [ruleGroups, setRuleGroups] = useState<RuleGroup[]>([]);
+  const { ruleGroups, setRuleGroups } = useRulesContext();
 
   /** ✅ Carica i gruppi di regole da un file JSON */
   const loadRules = (json: RuleGroup[]) => {
     if (!Array.isArray(json)) {
-      console.error("Errore: Il file JSON non è un array di regole.", json);
       toast.error("Errore nel caricamento del file JSON");
       return;
     }
     setRuleGroups(json);
-    console.log("Regole caricate:", json);
-    toast.success("Regole aggiunte con successo!", { className: "bg-success" });
+    toast.success("Regole caricate con successo!", { className: "bg-success" });
+    console.log(ruleGroups);
+  };
+
+    /** 🔥 DA ELIMINARE */
+    useEffect(() => {
+      console.log("Regole caricate:", ruleGroups);
+    }, [ruleGroups]);
+
+  /** ✅ Restituisce un gruppo di regole per ID */
+  const getRuleGroupById = (group_id: string): RuleGroup | undefined => {
+    return ruleGroups.find((group) => group.group_id === group_id);
   };
 
   /** ✅ Aggiunge un nuovo gruppo di regole */
   const addRuleGroup = (group: RuleGroup) => {
-    setRuleGroups((prevGroups) => [...prevGroups, group]);
+    setRuleGroups([...ruleGroups, group]);
   };
 
-  /** ✅ Rimuove un gruppo di regole in base all'ID */
+  /** ✅ Rimuove un gruppo di regole */
   const removeRuleGroup = (group_id: string) => {
-    setRuleGroups((prevGroups) =>
-      prevGroups.filter((group) => group.group_id !== group_id)
-    );
+    setRuleGroups(ruleGroups.filter((group) => group.group_id !== group_id));
   };
 
   /** ✅ Modifica un gruppo di regole */
-  const updateRuleGroup = (
-    group_id: string,
-    updatedGroup: Partial<RuleGroup>
-  ) => {
-    setRuleGroups((prevGroups) =>
-      prevGroups.map((group) =>
-        group.group_id === group_id ? { ...group, ...updatedGroup } : group
-      )
-    );
+  const updateRuleGroup = (group_id: string, updatedGroup: Partial<RuleGroup>) => {
+    setRuleGroups(ruleGroups.map((group) =>
+      group.group_id === group_id ? { ...group, ...updatedGroup } : group
+    ));
   };
 
-  /** ✅ Aggiunge una nuova regola a un gruppo specifico */
-  const addRuleToGroup = (group_id: string, newRule: RuleCondition) => {
-    setRuleGroups((prevGroups) =>
-      prevGroups.map((group) =>
-        group.group_id === group_id
-          ? { ...group, rules: [...group.rules, newRule] }
-          : group
-      )
-    );
-  };
-
-  /** ✅ Rimuove una regola da un gruppo specifico */
-  const removeRuleFromGroup = (group_id: string, ruleIndex: number) => {
-    setRuleGroups((prevGroups) =>
-      prevGroups.map((group) =>
-        group.group_id === group_id
-          ? {
-              ...group,
-              rules: group.rules.filter((_, index) => index !== ruleIndex),
-            }
-          : group
-      )
-    );
-  };
-
-  /** ✅ Modifica una singola regola all'interno di un gruppo */
-  const updateRuleInGroup = (
-    group_id: string,
-    ruleIndex: number,
-    updatedRule: Partial<RuleCondition>
-  ) => {
-    setRuleGroups((prevGroups) =>
-      prevGroups.map((group) =>
-        group.group_id === group_id
-          ? {
-              ...group,
-              rules: group.rules.map((rule, index) =>
-                index === ruleIndex ? { ...rule, ...updatedRule } : rule
-              ),
-            }
-          : group
-      )
-    );
+  /** ✅ Aggiunge una regola a un gruppo */
+  const addRuleToGroup = (group_id: string, newRule: Rule) => {
+    setRuleGroups(ruleGroups.map((group) =>
+      group.group_id === group_id ? { ...group, rules: [...group.rules? group.rules : [], newRule] } : group
+    ));
   };
 
   /** ✅ Resetta tutte le regole */
@@ -94,12 +59,11 @@ export const useRules = () => {
   return {
     ruleGroups,
     loadRules,
+    getRuleGroupById,
     addRuleGroup,
     removeRuleGroup,
     updateRuleGroup,
     addRuleToGroup,
-    removeRuleFromGroup,
-    updateRuleInGroup,
     resetRules,
   };
 };
