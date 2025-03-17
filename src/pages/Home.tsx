@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Context } from "../common/contexts/Context";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Card } from "../common/components/Card";
 import Title from "../common/components/Title";
 import re_logo from "../assets/images/logo-rules-editor.png";
@@ -10,11 +10,11 @@ import Button from "../common/components/Button";
 import ConfirmModal from "../common/components/ConfirmModal";
 import { RuleGroupTable } from "../common/models/RuleProps";
 import DataTable from "../common/components/DataTable";
-import { ColDef } from "ag-grid-community";
+import { ColDef, RowClickedEvent } from "ag-grid-community";
+import { motion } from "framer-motion";
 
 const Home = () => {
-  // const { changeLoading, clearLoading } = useContext(Context);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const { ruleGroups, loadRules, resetRules } = useRules();
   const ctx = useContext(Context);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,12 +32,21 @@ const Home = () => {
   }));
 
 
+  const onRowClick = (event: RowClickedEvent) => {
+    ctx.changeLoading(1);
+    setTimeout(() => {
+      if (!event.data) return;
+      const group_id = event.data.group_id;
+      const group_name = event.data.group_name;
+      navigate(`/edit/${group_name}/${group_id}`);
+      ctx.clearLoading();
+    }, 1000);
+  };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     ctx.changeLoading(1);
 
     setTimeout(() => {
-
       const file = event.target.files?.[0];
       if (!file) return;
       const reader = new FileReader();
@@ -47,13 +56,14 @@ const Home = () => {
           loadRules(json);
         } catch (error) {
           console.error(error);
-          toast.error("Errore nel caricamento delle regole")
+          toast.error("Errore nel caricamento delle regole", {
+            autoClose: 2000,
+          })
         }
       };
       reader.readAsText(file);
-
       ctx.clearLoading();
-    }, 50);
+    }, 200);
   };
 
   return (
@@ -88,13 +98,21 @@ const Home = () => {
                 </div>
                 <Button text="Resetta regole" className="bg-neutral-90 border border-primary-20 text-primary-20 px-4 py-2 rounded" action={() => setIsModalOpen(true)} />
               </div>
+
               <ConfirmModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 onConfirm={() => {
-                  toast.warning("Regole resettate con successo!")
-                  resetRules()
-                  setIsModalOpen(false);
+                  toast.warning("Regole resettate con successo!", {
+                    autoClose: 2000,
+                  })
+                  ctx.changeLoading(1);
+                  setTimeout(() => {
+                    resetRules()
+                    setIsModalOpen(false);
+                    ctx.clearLoading();
+                  }, 1000);
+
                 }}
                 title="Sei sicuro?"
               >
@@ -106,10 +124,18 @@ const Home = () => {
         </Card>
 
         {ruleGroups.length > 0 && (
-          <Card className="bg-neutral-100 h-fit w-full mt-8 !py-4">
-            <DataTable<RuleGroupTable> columns={columns} data={rowData} />
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            <Card className="bg-neutral-100 h-fit w-full mt-8 !py-4">
+              <DataTable<RuleGroupTable> columns={columns} data={rowData} onRowClick={onRowClick} />
 
-          </Card>
+            </Card>
+          </motion.div>
+
 
         )}
       </div>
