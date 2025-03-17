@@ -26,8 +26,8 @@ export const useRules = () => {
   }, [ruleGroups]);
 
   /** Restituisce un gruppo di regole per ID */
-  const getRuleGroupById = (group_id: string): RuleGroup | undefined => {
-    return ruleGroups.find((group) => group.group_id === group_id);
+  const getRuleGroupById = (group_id: string, group_name:string): RuleGroup | undefined => {
+    return ruleGroups.find((group) => group.group_id === group_id && group.name === group_name);
   };
 
   /** Aggiunge un nuovo gruppo di regole */
@@ -105,11 +105,6 @@ export const useRules = () => {
             : group
         )
       );
-  
-      toast.success("Regola aggiornata con successo!", {
-        className: "bg-success",
-        autoClose: 2000,
-      });
     };
 
   return {

@@ -20,7 +20,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
                 <div className="grid grid-cols-2 gap-2 mt-8">
                     <Button
                         text="Annulla"
-                        className="bg-secondary-90 text-white px-4 py-2 rounded w-full"
+                        className="bg-secondary-90 text-black px-4 py-2 rounded w-full"
                         action={onClose}
                     />
                     <Button

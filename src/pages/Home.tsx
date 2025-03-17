@@ -8,7 +8,7 @@ import { useRules } from "../common/hooks/useRules";
 import { toast } from "react-toastify";
 import Button from "../common/components/Button";
 import ConfirmModal from "../common/components/ConfirmModal";
-import { RuleGroupTable } from "../common/models/RuleProps";
+import { Rule, RuleGroupTable } from "../common/models/RuleProps";
 import DataTable from "../common/components/DataTable";
 import { ColDef, RowClickedEvent } from "ag-grid-community";
 import { motion } from "framer-motion";
@@ -22,7 +22,7 @@ const Home = () => {
   const columns: ColDef[] = [
     { field: "group_id", headerName: "ID Gruppo", width: 120 },
     { field: "group_name", headerName: "Nome Gruppo", flex: 1 },
-    { field: "rules_count", headerName: "N. Regole", width: 150 },
+    { field: "rules_count", headerName: "Numero di regole", width: 150 },
   ];
 
   const rowData: RuleGroupTable[] = ruleGroups.map((group) => ({
@@ -43,28 +43,59 @@ const Home = () => {
     }, 1000);
   };
 
+  const validateRulesJson = (json: JSON) => {
+    if (!Array.isArray(json)) return false;
+
+    return json.every((group) =>
+      typeof group.group_id === "string" &&
+      typeof group.name === "string" &&
+      Array.isArray(group.rules) &&
+      (group.operator === "AND" || group.operator === "OR") &&
+      group.rules.every((rule: Rule) =>
+        typeof rule.comparison_type === "string" &&
+        typeof rule.comparison_operator === "string" &&
+        ["str", "int", "bool", "list_str"].includes(rule.comparison_value_type) &&
+        (typeof rule.value === "string" ||
+          typeof rule.value === "number" ||
+          typeof rule.value === "boolean" ||
+          (Array.isArray(rule.value) && rule.value.every(v => typeof v === "string")))
+      )
+    );
+  };
+
+
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     ctx.changeLoading(1);
 
     setTimeout(() => {
       const file = event.target.files?.[0];
       if (!file) return;
+
       const reader = new FileReader();
       reader.onload = (e) => {
         try {
           const json = JSON.parse(e.target?.result as string);
+
+          if (!validateRulesJson(json)) {
+            toast.error("Il file JSON non è valido. Controlla la struttura dei dati.", {
+              autoClose: 2000,
+            });
+            return;
+          }
+
           loadRules(json);
         } catch (error) {
           console.error(error);
           toast.error("Errore nel caricamento delle regole", {
             autoClose: 2000,
-          })
+          });
         }
       };
       reader.readAsText(file);
       ctx.clearLoading();
     }, 200);
   };
+
 
   return (
     ruleGroups && (

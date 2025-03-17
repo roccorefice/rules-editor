@@ -3,7 +3,7 @@ export interface RuleGroup {
   name: string;
   rules?: Rule[];
   operator?: "AND" | "OR";
-  rules_count: string;
+  rules_count?: string;
 }
 export interface RuleGroupTable {
   group_id: string;

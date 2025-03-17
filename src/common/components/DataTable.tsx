@@ -15,9 +15,9 @@ const DataTable = <T,>({ columns, data, className = "", onRowClick }: DataTableP
         rowStyle: { background: "#fff" },
         getRowStyle: (params) => {
             if (params.node.rowIndex && params.node.rowIndex !== undefined && params.node.rowIndex % 2 === 0) {
-                return { background: "#DEECFB" };
+                return { background: "#e8e8e8" };
             } else if (params.node.rowIndex === 0) {
-                return { background: "#DEECFB" };
+                return { background: "#e8e8e8" };
             }
             return { background: "#fff" };
         },
@@ -28,7 +28,7 @@ const DataTable = <T,>({ columns, data, className = "", onRowClick }: DataTableP
     };
 
     return (
-        <div className={`ag-theme-material ${className}`} style={{ height: 600, width: "100%", overflow: "auto" }}>
+        <div className={`ag-theme-material ${className}`} style={{ height: 600, width: "100%", overflow: "auto", fontFamily: "Roboto, sans-serif" }}>
             <AgGridReact
                 rowData={data}
                 columnDefs={columns}
