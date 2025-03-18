@@ -41,7 +41,8 @@ const LoginPage = () => {
             <Card className="w-fit m-auto">
                 <div className="p-6 flex flex-col items-center">
                     <img src={re_logo} className="h-16 mb-4" />
-                    <h1 className="text-2xl font-bold text-primary-0 mb-4">Accedi</h1>
+                    <h1 className="text-2xl font-bold text-primary-0">Accedi</h1>
+                    <p className="text-secondary-80 text-sm mb-4">Utilizzare: admin / Password01</p>
 
                     <Formik
                         initialValues={initialValues}
