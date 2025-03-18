@@ -119,6 +119,7 @@ const EditRule = () => {
                     <div>
                         <Title className="mb-2">Rules Editor</Title>
                         <Title className="mb-4" subTitle>Modifica il gruppo di regole</Title>
+                        <Button text="<<< Vai indietro" className="text-sm text-primary-20 font-semibold" action={() => { navigate("/home") }} />
                     </div>
                     <img src={re_logo} className="h-12 cursor-pointer" onClick={() => navigate("/home")} />
                 </div>

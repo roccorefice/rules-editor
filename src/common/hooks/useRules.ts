@@ -1,7 +1,6 @@
 import { Rule, RuleGroup } from "../models/RuleProps";
 import { toast } from "react-toastify";
 import { useRulesContext } from "./useRulesContext";
-import { useEffect } from "react";
 
 export const useRules = () => {
   const { ruleGroups, setRuleGroups } = useRulesContext();
@@ -13,42 +12,16 @@ export const useRules = () => {
       return;
     }
     setRuleGroups(json);
-    toast.success("Regole caricate con successo!", {
-      className: "bg-success",
-      autoClose: 2000,
-    });
     console.log(ruleGroups);
   };
 
-  /** 🔥 DA ELIMINARE */
-  useEffect(() => {
-    console.log("Regole caricate:", ruleGroups);
-  }, [ruleGroups]);
-
   /** Restituisce un gruppo di regole per ID */
-  const getRuleGroupById = (group_id: string, group_name:string): RuleGroup | undefined => {
-    return ruleGroups.find((group) => group.group_id === group_id && group.name === group_name);
-  };
-
-  /** Aggiunge un nuovo gruppo di regole */
-  const addRuleGroup = (group: RuleGroup) => {
-    setRuleGroups([...ruleGroups, group]);
-  };
-
-  /** Rimuove un gruppo di regole */
-  const removeRuleGroup = (group_id: string) => {
-    setRuleGroups(ruleGroups.filter((group) => group.group_id !== group_id));
-  };
-
-  /** Modifica un gruppo di regole */
-  const updateRuleGroup = (
+  const getRuleGroupById = (
     group_id: string,
-    updatedGroup: Partial<RuleGroup>
-  ) => {
-    setRuleGroups(
-      ruleGroups.map((group) =>
-        group.group_id === group_id ? { ...group, ...updatedGroup } : group
-      )
+    group_name: string
+  ): RuleGroup | undefined => {
+    return ruleGroups.find(
+      (group) => group.group_id === group_id && group.name === group_name
     );
   };
 
@@ -85,38 +58,35 @@ export const useRules = () => {
     setRuleGroups([]);
   };
 
-    /** ✅ Modifica una regola specifica in un gruppo */
-    const updateRuleInGroup = (
-      group_id: string,
-      ruleIndex: number,
-      updatedRule: Rule
-    ) => {
-      setRuleGroups((prevGroups: RuleGroup[]) =>
-        prevGroups.map((group) =>
-          group.group_id === group_id
-            ? {
-                ...group,
-                rules: group.rules
-                  ? group.rules.map((rule, index) =>
-                      index === ruleIndex ? updatedRule : rule
-                    )
-                  : [],
-              }
-            : group
-        )
-      );
-    };
+  /** ✅ Modifica una regola specifica in un gruppo */
+  const updateRuleInGroup = (
+    group_id: string,
+    ruleIndex: number,
+    updatedRule: Rule
+  ) => {
+    setRuleGroups((prevGroups: RuleGroup[]) =>
+      prevGroups.map((group) =>
+        group.group_id === group_id
+          ? {
+              ...group,
+              rules: group.rules
+                ? group.rules.map((rule, index) =>
+                    index === ruleIndex ? updatedRule : rule
+                  )
+                : [],
+            }
+          : group
+      )
+    );
+  };
 
   return {
     ruleGroups,
     loadRules,
     getRuleGroupById,
-    addRuleGroup,
-    removeRuleGroup,
-    updateRuleGroup,
     addRuleToGroup,
     resetRules,
     removeRuleFromGroup,
-    updateRuleInGroup
+    updateRuleInGroup,
   };
 };

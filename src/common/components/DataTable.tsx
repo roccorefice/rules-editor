@@ -12,6 +12,9 @@ interface DataTableProps<T> {
 const DataTable = <T,>({ columns, data, className = "", onRowClick }: DataTableProps<T>) => {
 
     const gridOptions: GridOptions<T> = {
+        suppressCellFocus: true, 
+        suppressRowClickSelection: true,
+        rowSelection: "single",
         rowStyle: { background: "#fff" },
         getRowStyle: (params) => {
             if (params.node.rowIndex && params.node.rowIndex !== undefined && params.node.rowIndex % 2 === 0) {

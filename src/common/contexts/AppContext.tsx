@@ -6,7 +6,7 @@ import Loader from "../components/Loader";
 export const AppContext = ({ children }: PropsWithChildren) => {
     const [loading, setLoading] = useState(0);
 
-    const changeLoading = (val: number) => {        
+    const changeLoading = (val: number) => {
         setLoading((prev) => Math.max(0, prev + val));
     };
 

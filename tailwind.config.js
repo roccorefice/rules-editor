@@ -8,7 +8,7 @@ module.exports = {
     screens: {
       sm: '640px',
       md: '768px',
-      lg: '1024px', // Questo corrisponde a 1024px
+      lg: '1024px',
       xl: '1280px',
       '2xl': '1536px',
     },
@@ -51,7 +51,7 @@ module.exports = {
       },
       colors: {
         primary: {
-          0: "#000000",  // Nero
+          0: "#000000",  
           10: "#121212",
           20: "#1E1E1E",
           30: "#2A2A2A",
@@ -63,7 +63,7 @@ module.exports = {
           90: "#C0C0C0",
           95: "#E0E0E0",
           99: "#F5F5F5",
-          100: "#FFFFFF", // Bianco
+          100: "#FFFFFF", 
         },
         secondary: {
           0: "#101010",

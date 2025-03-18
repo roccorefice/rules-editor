@@ -84,6 +84,10 @@ const Home = () => {
           }
 
           loadRules(json);
+          toast.success("Regole caricate con successo!", {
+            className: "bg-success",
+            autoClose: 2000,
+          });
         } catch (error) {
           console.error(error);
           toast.error("Errore nel caricamento delle regole", {
@@ -96,6 +100,24 @@ const Home = () => {
     }, 200);
   };
 
+  const downloadRulesJson = () => {
+    ctx.changeLoading(1);
+
+    setTimeout(() => {
+      const jsonString = JSON.stringify(ruleGroups, null, 2); 
+      const blob = new Blob([jsonString], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "rules.json"; 
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      ctx.clearLoading();
+
+    }, 1000);
+  };
 
   return (
     ruleGroups && (
@@ -127,7 +149,11 @@ const Home = () => {
                 <div>
                   Regole caricate: {ruleGroups?.length}
                 </div>
-                <Button text="Resetta regole" className="bg-neutral-90 border border-primary-20 text-primary-20 px-4 py-2 rounded" action={() => setIsModalOpen(true)} />
+                <div>
+                  <Button text="Resetta regole" className="bg-neutral-90 border border-primary-20 text-primary-20 px-4 py-2 rounded" action={() => setIsModalOpen(true)} />
+                  <Button text="Scarica JSON" className="bg-primary-20 text-white px-4 py-2 rounded ml-4" action={downloadRulesJson} />
+
+                </div>
               </div>
 
               <ConfirmModal

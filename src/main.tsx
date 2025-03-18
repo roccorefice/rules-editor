@@ -6,7 +6,6 @@ import { ModuleRegistry } from 'ag-grid-community';
 import { AllCommunityModule } from 'ag-grid-community';
 import { AppContext } from './common/contexts/AppContext.tsx';
 import { RulesProvider } from './common/contexts/RulesContext.tsx';
-// import Loader from './common/components/Loader';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 

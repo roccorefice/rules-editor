@@ -14,7 +14,7 @@ const FormikInputField: React.FC<FormikInputFieldProps> = ({ name, valueType, co
         return (
             <div className="flex flex-col gap-2 rounded p-3 bg-neutral-100">
                 {fieldOptions[comparisonType].map((option) => (
-                    <label key={option} className="flex items-center gap-2 text-primary-20">
+                    <label key={option} className="flex items-center gap-2 text-primary-20 cursor-pointer">
                         <input
                             type="checkbox"
                             name={name}
@@ -30,7 +30,7 @@ const FormikInputField: React.FC<FormikInputFieldProps> = ({ name, valueType, co
                                 }
                                 setFieldValue(name, newValue);
                             }}
-                            className="w-4 h-4 text-primary-20"
+                            className="w-5 h-5 appearance-none border-2 border-secondary-20 rounded-sm checked:bg-secondary-20 checked:border-secondary-20 checked:text-white checked:after:content-['✔'] checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-white checked:after:text-xs transition-all duration-200"
                         />
                         {option}
                     </label>

@@ -1,5 +1,5 @@
 export interface ButtonProps {
-  type?: "submit" | "reset" | "button" | undefined;
+  type?: "submit" | "button" | undefined;
   text: string;
   className?: string;
   action?: () => void | ((values: object) => void);
