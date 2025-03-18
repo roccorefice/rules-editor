@@ -21,7 +21,7 @@ Di seguito una panoramica delle funzionalità supportate dall’app:
 
 | **Feature**                    | **Given (Stato Iniziale)** | **When (Azione)** | **Then (Risultato Atteso)** |
 |---------------------------------|---------------------------|-------------------|----------------------------|
-| **Login Admin**                 | L’utente non è autenticato | Inserisce "admin" e "password" | Viene autenticato e accede alla piattaforma |
+| **Login Admin**                 | L’utente non è autenticato | Inserisce "admin" e "Password01" | Viene autenticato e accede alla piattaforma |
 | **Caricamento JSON + Validazione** | L'utente ha un file JSON valido | Seleziona e carica il file | Il file viene validato e caricato correttamente |
 | **Reset del JSON**               | Un file JSON è stato caricato | L'utente clicca su "Reset JSON" | Il file JSON viene cancellato e i dati vengono svuotati |
 | **Visualizzazione Gruppi di Regole** | Un JSON valido è stato caricato | L'utente accede alla Home (/home) | Una tabella mostra i gruppi di regole caricati |
