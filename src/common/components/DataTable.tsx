@@ -1,18 +1,13 @@
 import { AgGridReact } from "ag-grid-react";
-import { ColDef, GridOptions, GridReadyEvent, RowClickedEvent } from "ag-grid-community";
+import { GridOptions, GridReadyEvent } from "ag-grid-community";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
-interface DataTableProps<T> {
-    columns: ColDef<T>[];
-    data: T[];
-    className?: string;
-    onRowClick?: (event: RowClickedEvent<T>) => void; 
-}
+import { DataTableProps } from "../models/DataTableProps";
 
 const DataTable = <T,>({ columns, data, className = "", onRowClick }: DataTableProps<T>) => {
 
     const gridOptions: GridOptions<T> = {
-        suppressCellFocus: true, 
+        suppressCellFocus: true,
         suppressRowClickSelection: true,
         rowSelection: "single",
         rowStyle: { background: "#fff" },

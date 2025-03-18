@@ -16,9 +16,8 @@ export interface Rule {
   comparison_value_type: "str" | "int" | "bool" | "list_str";
   value: string | number | boolean | string[];
 }
-
-// export interface RuleTable {
-//   group_id: string;
-//   group_name: string;
-//   rules_count: number;
-// }
+export interface RuleFormProps {
+  rule: Rule | null;
+  onSave: (updatedRule: Rule) => void;
+  onCancel: () => void;
+}

@@ -1,16 +1,10 @@
-import { Rule } from "../models/RuleProps";
+import { Rule, RuleFormProps } from "../models/RuleProps";
 import Button from "../components/Button";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { comparisonOperators, comparisonTypes, comparisonValueTypes } from "../enums/enum";
 import { motion } from "framer-motion";
 import FormikInputField from "./FormikInputField";
-
-interface RuleFormProps {
-    rule: Rule | null;
-    onSave: (updatedRule: Rule) => void;
-    onCancel: () => void;
-}
 
 const RuleForm: React.FC<RuleFormProps> = ({ rule, onSave, onCancel }) => {
 

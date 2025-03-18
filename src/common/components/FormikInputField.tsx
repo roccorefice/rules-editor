@@ -1,11 +1,6 @@
 import { Field, FormikValues, useFormikContext } from "formik";
 import { fieldOptions } from "../enums/enum";
-
-interface FormikInputFieldProps {
-    name: string;
-    valueType: string;
-    comparisonType?: string;
-}
+import { FormikInputFieldProps } from "../models/FormikInputFieldProps";
 
 const FormikInputField: React.FC<FormikInputFieldProps> = ({ name, valueType, comparisonType }) => {
     const { values, setFieldValue } = useFormikContext<FormikValues>();
