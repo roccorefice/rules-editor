@@ -1,7 +1,7 @@
 # 📌 Rules Editor
 
 
- **Credenziali per login: admin / Password01**
+🚨🚩**Credenziali per login: admin / Password01**
  
 
 ## 📜 Descrizione
